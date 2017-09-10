@@ -211,7 +211,7 @@ module.exports = {
       var comments = dox.parseComments(str)
 
       comments.should.be.an.instanceOf(Array);
-      comments.should.have.lengthOf(3);
+      comments.should.have.lengthOf(5);
 
       // constructor
       comments[0].description.full.should.equal('<p>Does a lot of foo</p>');
@@ -234,6 +234,20 @@ module.exports = {
       comments[2].ctx.string.should.be.equal('Foo.prototype.method()');
       comments[2].line.should.equal(18);
       comments[2].codeStart.should.equal(22);
+      
+      comments[3].description.full.should.equal('<p>An arrow method</p>');
+      comments[3].ctx.type.should.be.equal('method');
+      comments[3].ctx.name.should.be.equal('fooBar');
+      comments[3].ctx.string.should.be.equal('Foo.prototype.fooBar()');
+      comments[3].line.should.equal(26);
+      comments[3].codeStart.should.equal(30);
+      
+      comments[4].description.full.should.equal('<p>An asynchronous method of an instance of Foo</p>');
+      comments[4].ctx.type.should.be.equal('method');
+      comments[4].ctx.name.should.be.equal('asyncMethod');
+      comments[4].ctx.string.should.be.equal('Foo.prototype.asyncMethod()');
+      comments[4].line.should.equal(32);
+      comments[4].codeStart.should.equal(36);
 
       done();
     });
@@ -863,6 +877,7 @@ module.exports = {
       comments[3].description.full.should.equal("<p>Four</p>");
       comments[3].ctx.type.should.equal('function');
       comments[3].ctx.name.should.equal('four');
+      
       done();
     });
   },
@@ -961,6 +976,54 @@ module.exports = {
       comments[5].description.full.should.equal("<p>Six</p>");
       comments[6].description.full.should.equal("<p>Seven</p>");
       comments[7].description.full.should.equal("<p>Eight</p>");
+      done();
+    });
+  },
+  
+  'test arrow functions': function (done) {
+    fixture('arrow-functions.js', function (err, str){
+      var comments = dox.parseComments(str);
+      comments.length.should.equal(5);
+      comments[0].description.full.should.equal("<p>One</p>");
+      comments[0].ctx.type.should.equal('function');
+      comments[0].ctx.name.should.equal('one');
+      
+      comments[1].description.full.should.equal("<p>Negate</p>");
+      comments[1].ctx.type.should.equal('function');
+      comments[1].ctx.name.should.equal('neg');
+
+      comments[2].description.full.should.equal("<p>Add</p>");
+      comments[2].ctx.type.should.equal('function');
+      comments[2].ctx.name.should.equal('add');
+      
+      comments[3].description.full.should.equal("<p>Four</p>");
+      comments[3].ctx.type.should.equal('function');
+      comments[3].ctx.name.should.equal('four');
+      
+      comments[4].description.full.should.equal("<p>Max</p>");
+      comments[4].ctx.type.should.equal('function');
+      comments[4].ctx.name.should.equal('max');
+      
+      done();
+    });
+  },
+  
+  'test async functions': function (done) {
+    fixture('async-functions.js', function (err, str){
+      var comments = dox.parseComments(str);
+      comments.length.should.equal(3);
+      comments[0].description.full.should.equal("<p>One</p>");
+      comments[0].ctx.type.should.equal('function');
+      comments[0].ctx.name.should.equal('one');
+      
+      comments[1].description.full.should.equal("<p>All items</p>");
+      comments[1].ctx.type.should.equal('function');
+      comments[1].ctx.name.should.equal('all');
+
+      comments[2].description.full.should.equal("<p>Five</p>");
+      comments[2].ctx.type.should.equal('function');
+      comments[2].ctx.name.should.equal('five');
+      
       done();
     });
   },

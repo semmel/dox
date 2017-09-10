@@ -22,3 +22,17 @@ Foo.prototype.property = 'this is a property'
 Foo.prototype.method = function () {
   return false
 }
+
+/**
+ * An arrow method
+ * @param x
+ */
+Foo.prototype.fooBar = x => String(x) + "_bar";
+
+/**
+ * An asynchronous method of an instance of Foo
+ * @return {Boolean}
+ */
+Foo.prototype.asyncMethod = async function () {
+  return false
+}

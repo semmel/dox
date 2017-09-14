@@ -983,18 +983,19 @@ module.exports = {
   'test arrow functions': function (done) {
     fixture('arrow-functions.js', function (err, str){
       var comments = dox.parseComments(str);
-      comments.length.should.equal(5);
+      comments.length.should.equal(6);
+
       comments[0].description.full.should.equal("<p>One</p>");
       comments[0].ctx.type.should.equal('function');
       comments[0].ctx.name.should.equal('one');
       
       comments[1].description.full.should.equal("<p>Negate</p>");
       comments[1].ctx.type.should.equal('function');
-      comments[1].ctx.name.should.equal('neg');
+      comments[1].ctx.name.should.equal('$neg');
 
       comments[2].description.full.should.equal("<p>Add</p>");
       comments[2].ctx.type.should.equal('function');
-      comments[2].ctx.name.should.equal('add');
+      comments[2].ctx.name.should.equal('_add');
       
       comments[3].description.full.should.equal("<p>Four</p>");
       comments[3].ctx.type.should.equal('function');
@@ -1003,6 +1004,10 @@ module.exports = {
       comments[4].description.full.should.equal("<p>Max</p>");
       comments[4].ctx.type.should.equal('function');
       comments[4].ctx.name.should.equal('max');
+
+      comments[5].description.full.should.equal("<p>alwaysUndefined</p>");
+      comments[5].ctx.type.should.equal('function');
+      comments[5].ctx.name.should.equal('alwaysUndefined');
       
       done();
     });
